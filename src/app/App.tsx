@@ -1,3 +1,4 @@
+import { ThemeProvider } from '../shared/lib/theme'
 import { MainLayout } from '../shared/layouts/MainLayout'
 import { PostList } from '../widgets/PostList'
 
@@ -22,8 +23,10 @@ const posts: Post[] = [
 
 export default function App() {
   return (
-    <MainLayout>
-      <PostList posts={posts} />
-    </MainLayout>
+    <ThemeProvider>
+      <MainLayout>
+        <PostList posts={posts} />
+      </MainLayout>
+    </ThemeProvider>
   )
 }
