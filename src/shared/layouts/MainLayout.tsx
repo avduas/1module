@@ -1,3 +1,4 @@
+import './MainLayout.css'
 import { Header } from '../../widgets/LayoutHeader'
 import { Footer } from '../../widgets/LayoutFooter'
 import type { ReactNode } from 'react'

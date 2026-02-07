@@ -1,3 +1,5 @@
+import './index.css'
+import { Fragment } from 'react'
 import type { Post } from '../../app/App'
 import { PostCard } from '../../entities/post/ui/PostCard'
 
@@ -7,13 +9,14 @@ type Props = {
 
 export const PostList = ({ posts }: Props) => {
   return (
-    <section>
+    <section className="post-list">
       {posts.map(post => (
-        <PostCard
-          key={post.id}
-          title={post.title}
-          body={post.body}
-        />
+        <Fragment key={post.id}>
+          <PostCard
+            title={post.title}
+            body={post.body}
+          />
+        </Fragment>
       ))}
     </section>
   )
