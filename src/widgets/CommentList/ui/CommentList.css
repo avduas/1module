@@ -1,0 +1,151 @@
+.comment-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding: 0;
+  margin: 0;
+}
+
+.comment-list__first {
+  padding: 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 4px 4px 0 0;
+  background-color: var(--card);
+
+}
+
+.comment-list__first-title {
+  margin: 0 0 0.5rem 0;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.comment-list__first-text {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--text);
+}
+
+/* Preview/Компактный вид остальных комментариев */
+.comment-list__preview {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--border);
+  border-top: none;
+  background-color: var(--bg);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  user-select: none;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.comment-list__preview:hover {
+  background-color: var(--card);
+  border-color: var(--accent);
+}
+
+.comment-list__preview--expanded {
+  border-radius: 0;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.comment-list__preview-content {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  min-width: 0;
+}
+
+.comment-list__preview-icon {
+  font-size: 0.75rem;
+  color: var(--accent);
+  font-weight: 600;
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+}
+
+.comment-list__preview:hover .comment-list__preview-icon {
+  transform: scale(1.1);
+}
+
+.comment-list__preview-text {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Развёрнутые комментарии */
+.comment-list__expanded {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--border);
+  border-top: none;
+  border-radius: 0 0 4px 4px;
+  background-color: var(--card);
+  overflow: hidden;
+  animation: expandDown 0.3s ease;
+}
+
+@keyframes expandDown {
+  from {
+    opacity: 0;
+    max-height: 0;
+  }
+  to {
+    opacity: 1;
+    max-height: 1000px;
+  }
+}
+
+/* Элементы раскрытых комментариев */
+.comment-list__item {
+  padding: 0.75rem;
+  border-top: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.comment-list__item:first-child {
+  border-top: none;
+}
+
+.comment-list__item-title {
+  margin: 0;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.comment-list__item-text {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--text);
+}
+
+/* Loading и Error */
+.loading,
+.error {
+  padding: 1rem;
+  border-radius: 4px;
+  text-align: center;
+}
+
+.loading {
+  background-color: var(--accent);
+  color: white;
+}
+
+.error {
+  background-color: #f8d7da;
+  color: #721c24;
+}
