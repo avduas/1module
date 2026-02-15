@@ -1,0 +1,33 @@
+.post-card {
+  background: var(--card);
+  padding: 16px;
+  border-radius: var(--radius);
+  box-shadow: 0 1px 3px rgba(2, 6, 23, 0.06);
+  margin-bottom: 12px;
+}
+
+.post-card__title {
+  margin: 0 0 8px 0;
+  font-size: 1.05rem;
+  color: var(--text);
+}
+
+.post-card__body {
+  margin: 0 0 16px 0;
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+.post-card__comments {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+
+.post-card__comments-title {
+  margin: 0 0 12px 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
