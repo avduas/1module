@@ -54,7 +54,6 @@ export const PostList = ({ isLoading = false, error }: Props) => {
     setMaxLength(max)
   }, [])
 
-  // Оптимизация: фильтруем посты только когда меняются зависимости
   const filteredPosts = useMemo(
     () => filterByLength(MOCK_POSTS, minLength, maxLength),
     [minLength, maxLength]
