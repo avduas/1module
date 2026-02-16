@@ -2,52 +2,29 @@ import './PostList.css'
 import { Fragment, useMemo, useCallback, useState } from 'react'
 import { PostCard } from '../../entities/post/ui/PostCard'
 import { PostLengthFilter, filterByLength } from '../../features/PostLengthFilter'
+import { usePosts, type Post as APIPost } from '@/features/PostList/model/hooks'
 
-export type Post = {
-  id: number
-  title: string
-  body: string
+export type Post = APIPost & {
   comments?: Array<{ id: number; text: string }>
 }
-
-const MOCK_POSTS: Post[] = [
-  {
-    id: 1,
-    title: 'Первый пост',
-    body: 'Это текст первого поста',
-    comments: [
-      { id: 1, text: 'Отличный пост!' },
-      { id: 2, text: 'Согласен с автором' },
-    ],
-  },
-  {
-    id: 2,
-    title: 'Второй пост',
-    body: 'Это текст второго поста',
-    comments: [
-      { id: 1, text: 'Хороший контент' },
-    ],
-  },
-  {
-    id: 3,
-    title: 'Третий пост с длинным заголовком',
-    body: 'Это текст третьего поста',
-    comments: [
-      { id: 1, text: 'Очень информативно' },
-      { id: 2, text: 'Спасибо за информацию' },
-      { id: 3, text: 'Буду ждать продолжения' },
-    ],
-  },
-]
 
 type Props = {
   isLoading?: boolean
   error?: string
+  posts?: Post[]
+  userId?: number
 }
 
-export const PostList = ({ isLoading = false, error }: Props) => {
+export const PostList = ({ isLoading: externalLoading, error: externalError, posts: externalPosts, userId }: Props) => {
   const [minLength, setMinLength] = useState(0)
   const [maxLength, setMaxLength] = useState(50)
+
+  // Use usePosts hook if userId is provided or no external posts are provided
+  const { posts: fetchedPosts, loading: hookLoading, error: hookError } = usePosts(userId)
+
+  const posts = (externalPosts || fetchedPosts) as Post[]
+  const isLoading = externalLoading ?? hookLoading
+  const error = externalError ?? hookError
 
   const handleFilterChange = useCallback((min: number, max: number) => {
     setMinLength(min)
@@ -55,8 +32,8 @@ export const PostList = ({ isLoading = false, error }: Props) => {
   }, [])
 
   const filteredPosts = useMemo(
-    () => filterByLength(MOCK_POSTS, minLength, maxLength),
-    [minLength, maxLength]
+    () => filterByLength(posts, minLength, maxLength),
+    [minLength, maxLength, posts]
   )
 
   if (isLoading) {

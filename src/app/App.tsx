@@ -1,13 +1,5 @@
-import { ThemeProvider } from '../shared/lib/theme/ThemeProvider'
-import { MainLayout } from '../shared/layouts/MainLayout'
-import { PostList } from '../widgets/PostList/PostList'
+import { RouterProvider_ } from './providers/router'
 
 export default function App() {
-  return (
-    <ThemeProvider>
-      <MainLayout>
-        <PostList />
-      </MainLayout>
-    </ThemeProvider>
-  )
+  return <RouterProvider_ />
 }

@@ -2,11 +2,6 @@ import { createPortal } from 'react-dom'
 import './Modal.css'
 import type { ReactNode } from 'react'
 
-interface ModalContextType {
-  isOpen: boolean
-  onClose: () => void
-}
-
 // ===== Header Component =====
 interface ModalHeaderProps {
   children: ReactNode
