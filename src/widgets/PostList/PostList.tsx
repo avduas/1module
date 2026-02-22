@@ -1,5 +1,5 @@
 import './PostList.css'
-import { Fragment, useMemo, useCallback, useState } from 'react'
+import { useMemo, useCallback, useState } from 'react'
 import { PostCard } from '../../entities/post/ui/PostCard'
 import { PostLengthFilter, filterByLength } from '../../features/PostLengthFilter'
 import { usePosts, type Post as APIPost } from '@/features/PostList/model/hooks'

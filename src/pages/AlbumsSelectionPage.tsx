@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import { MainLayout } from '@/shared/layouts/MainLayout'
+import { UserTabs } from '@/widgets/UserTabs'
 import './SelectionPage.css'
 
 interface Album {
@@ -36,6 +37,7 @@ export const AlbumsSelectionPage = () => {
 
   return (
     <MainLayout>
+      <UserTabs />
       <div className="selection-page">
         <h1>Выберите альбом</h1>
         <div className="selection-grid">
