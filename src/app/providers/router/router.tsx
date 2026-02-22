@@ -1,14 +1,19 @@
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import { ThemeProvider } from '@/shared/lib/theme/ThemeProvider'
+import { createBrowserRouter } from 'react-router-dom'
 import {
   PostsPage,
   UserAlbumsPage,
   AlbumPhotosPage,
   UserTodosPage,
   UserPostsPage,
+  UsersSelectionPage,
+  AlbumsSelectionPage,
 } from '@/pages'
 
-const router = createBrowserRouter([
+export const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <PostsPage />,
+  },
   {
     path: '/posts',
     element: <PostsPage />,
@@ -18,27 +23,28 @@ const router = createBrowserRouter([
     element: <PostsPage />,
   },
   {
-    path: '/users/:id/albums',
-    element: <UserAlbumsPage />,
+    path: '/users',
+    element: <UsersSelectionPage />,
   },
   {
-    path: '/albums/:id/photos',
-    element: <AlbumPhotosPage />,
+    path: '/users/:id/posts',
+    element: <UserPostsPage />,
+  },
+  {
+    path: '/users/:id/albums',
+    element: <UserAlbumsPage />,
   },
   {
     path: '/users/:id/todos',
     element: <UserTodosPage />,
   },
   {
-    path: '/users/:id/posts',
-    element: <UserPostsPage />,
+    path: '/albums',
+    element: <AlbumsSelectionPage />,
+  },
+  {
+    path: '/albums/:id/photos',
+    element: <AlbumPhotosPage />,
   },
 ])
 
-export const RouterProvider_ = () => {
-  return (
-    <ThemeProvider>
-      <RouterProvider router={router} />
-    </ThemeProvider>
-  )
-}

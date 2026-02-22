@@ -3,6 +3,7 @@ import { Fragment, useMemo, useCallback, useState } from 'react'
 import { PostCard } from '../../entities/post/ui/PostCard'
 import { PostLengthFilter, filterByLength } from '../../features/PostLengthFilter'
 import { usePosts, type Post as APIPost } from '@/features/PostList/model/hooks'
+import { withLoading } from '@/shared/lib/hoc/withLoading'
 
 export type Post = APIPost & {
   comments?: Array<{ id: number; text: string }>
@@ -15,11 +16,27 @@ type Props = {
   userId?: number
 }
 
+const PostListContent = ({ posts = [] }: { posts: Post[] }) => (
+  <section className="post-list">
+    {posts.map(post => (
+      <PostCard
+        key={post.id}
+        title={post.title}
+        body={post.body}
+        comments={post.comments}
+      />
+    ))}
+  </section>
+)
+
+const PostListWithLoading = withLoading<{ posts: Post[]; isLoading: boolean; error?: string }>(
+  PostListContent
+)
+
 export const PostList = ({ isLoading: externalLoading, error: externalError, posts: externalPosts, userId }: Props) => {
   const [minLength, setMinLength] = useState(0)
   const [maxLength, setMaxLength] = useState(50)
 
-  // Use usePosts hook if userId is provided or no external posts are provided
   const { posts: fetchedPosts, loading: hookLoading, error: hookError } = usePosts(userId)
 
   const posts = (externalPosts || fetchedPosts) as Post[]
@@ -36,14 +53,6 @@ export const PostList = ({ isLoading: externalLoading, error: externalError, pos
     [minLength, maxLength, posts]
   )
 
-  if (isLoading) {
-    return <div className="loading">Загрузка...</div>
-  }
-
-  if (error) {
-    return <div className="error">Ошибка: {error}</div>
-  }
-
   return (
     <>
       <div className="post-list-wrapper">
@@ -54,17 +63,11 @@ export const PostList = ({ isLoading: externalLoading, error: externalError, pos
         />
 
         <div className="post-list-container">
-          <section className="post-list">
-            {filteredPosts.map(post => (
-              <Fragment key={post.id}>
-                <PostCard
-                  title={post.title}
-                  body={post.body}
-                  comments={post.comments}
-                />
-              </Fragment>
-            ))}
-          </section>
+          <PostListWithLoading
+            isLoading={isLoading}
+            error={error ?? undefined}
+            posts={filteredPosts}
+          />
         </div>
       </div>
     </>

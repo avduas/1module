@@ -1,0 +1,44 @@
+.selection-page {
+  padding: 20px;
+}
+
+.selection-page h1 {
+  margin-bottom: 30px;
+  color: var(--text);
+}
+
+.selection-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.selection-card {
+  display: block;
+  padding: 20px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  text-decoration: none;
+  color: var(--text);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.selection-card:hover {
+  border-color: var(--accent);
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.15);
+  transform: translateY(-2px);
+}
+
+.selection-card h3 {
+  margin: 0 0 10px 0;
+  font-size: 1.1rem;
+  color: var(--text);
+}
+
+.selection-card p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--muted);
+}

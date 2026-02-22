@@ -1,5 +1,5 @@
 import './CommentList.css'
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useMemo } from 'react'
 
 export type Comment = {
   id: number
@@ -17,12 +17,19 @@ export const CommentList = ({ comments }: Props) => {
     setShowAllComments(prev => !prev)
   }, [])
 
-  if (comments.length === 0) {
+  const { firstComment, restComments } = useMemo(() => {
+    if (comments.length === 0) return { firstComment: null, restComments: [] }
+    
+    return {
+      firstComment: comments[0],
+      restComments: comments.filter((_, index) => index > 0),
+    }
+  }, [comments])
+
+  if (!firstComment) {
     return <p>Нет комментариев</p>
   }
 
-  const firstComment = comments[0]
-  const restComments = comments.slice(1)
   const hasMoreComments = restComments.length > 0
 
   return (

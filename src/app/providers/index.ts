@@ -1,1 +1,2 @@
-export { RouterProvider_ } from './router'
+export { router } from './router/router'
+
