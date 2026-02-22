@@ -1,0 +1,33 @@
+.user-tabs {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+  border-bottom: 2px solid var(--border);
+}
+
+.tab {
+  padding: 10px 15px;
+  text-decoration: none;
+  color: var(--muted);
+  border-bottom: 3px solid transparent;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.tab:hover {
+  color: var(--text);
+}
+
+.tab.active {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
+.user-tabs .tab:first-child {
+  margin-right: 10px;
+  padding-left: 0;
+  padding-right: 0;
+  border-bottom: none;
+  font-weight: 500;
+}
+
