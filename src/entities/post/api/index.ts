@@ -1,1 +1,2 @@
-export { postsApi, useGetPostsQuery, useGetPostsByUserIdQuery, useGetPostByIdQuery, type Post } from './postsApi'
+export { postsApi, useGetPostsQuery, useGetPostsByUserIdQuery, useGetPostByIdQuery } from './postsApi'
+export type { Post } from '../model/types'

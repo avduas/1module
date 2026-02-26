@@ -1,1 +1,2 @@
-export { albumsApi, useGetAlbumsQuery, useGetAlbumsByUserIdQuery, type Album } from './albumsApi'
+export { albumsApi, useGetAlbumsQuery, useGetAlbumsByUserIdQuery } from './albumsApi'
+export type { Album, Photo } from '../model/types'

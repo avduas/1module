@@ -7,7 +7,7 @@ export const ThemeSwitcher = () => {
   return (
     <button
       className="theme-switcher"
-      onClick={toggleTheme}
+      onClick={e => { e.preventDefault(); toggleTheme() }}
       aria-label={`Переключить на ${theme === 'light' ? 'тёмную' : 'светлую'} тему`}
       title={theme === 'light' ? 'Тёмная тема' : 'Светлая тема'}
     >

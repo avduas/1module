@@ -1,8 +1,9 @@
 import './Button.css'
+import type { MouseEventHandler } from 'react'
 
 interface Props {
   label: string
-  onClick: () => void
+  onClick: MouseEventHandler<HTMLButtonElement>
   variant?: 'primary' | 'secondary'
   type?: 'button' | 'submit' | 'reset'
 }

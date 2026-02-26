@@ -1,1 +1,2 @@
-export { usersApi, useGetUsersQuery, useGetUserByIdQuery, type User } from './usersApi'
+export { usersApi, useGetUsersQuery, useGetUserByIdQuery } from './usersApi'
+export type { User } from '../model/types'

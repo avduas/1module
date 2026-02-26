@@ -1,5 +1,5 @@
 import './CommentList.css'
-import { useState, useCallback, useMemo } from 'react'
+import { useState, useCallback, useMemo, type MouseEventHandler } from 'react'
 
 export type Comment = {
   id: number
@@ -13,7 +13,8 @@ type Props = {
 export const CommentList = ({ comments }: Props) => {
   const [showAllComments, setShowAllComments] = useState(false)
 
-  const toggleShowAll = useCallback(() => {
+  const toggleShowAll = useCallback<MouseEventHandler<HTMLDivElement>>((e) => {
+    e.preventDefault()
     setShowAllComments(prev => !prev)
   }, [])
 

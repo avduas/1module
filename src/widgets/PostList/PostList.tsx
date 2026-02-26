@@ -2,11 +2,8 @@ import './PostList.css'
 import { useMemo, useCallback, useState } from 'react'
 import { PostCard } from '../../entities/post/ui/PostCard'
 import { PostLengthFilter, filterByLength } from '../../features/PostLengthFilter'
-import {
-  useGetPostsQuery,
-  useGetPostsByUserIdQuery,
-  type Post
-} from '@/entities/post/api/postsApi'
+import { useGetPostsQuery, useGetPostsByUserIdQuery } from '@/entities/post/api/postsApi'
+import type { Post } from '@/entities/post/model/types'
 import { withLoading } from '@/shared/lib/hoc/withLoading'
 
 type Props = {

@@ -1,1 +1,2 @@
-export { todosApi, useGetTodosQuery, useGetTodosByUserIdQuery, type Todo } from './todosApi'
+export { todosApi, useGetTodosQuery, useGetTodosByUserIdQuery } from './todosApi'
+export type { Todo } from '../model/types'

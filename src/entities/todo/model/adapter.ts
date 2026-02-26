@@ -1,5 +1,5 @@
 import { createEntityAdapter } from '@reduxjs/toolkit'
-import type { Todo } from '../api/todosApi'
+import type { Todo } from './types'
 
 export const todoAdapter = createEntityAdapter<Todo>({
   selectId: todo => todo.id,

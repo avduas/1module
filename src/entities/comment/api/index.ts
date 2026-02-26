@@ -1,1 +1,2 @@
-export { commentsApi, useGetCommentsByPostIdQuery, type Comment } from './commentsApi'
+export { commentsApi, useGetCommentsByPostIdQuery } from './commentsApi'
+export type { Comment } from '../model/types'

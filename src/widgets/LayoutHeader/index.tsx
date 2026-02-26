@@ -14,7 +14,7 @@ export const Header = () => {
         <div className="site-header__controls">
           <Button
             label="О проекте"
-            onClick={() => setIsModalOpen(true)}
+            onClick={e => { e.preventDefault(); setIsModalOpen(true) }}
             variant="secondary"
           />
           <ThemeSwitcher />

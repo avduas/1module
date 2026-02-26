@@ -1,5 +1,5 @@
 import { createEntityAdapter } from '@reduxjs/toolkit'
-import type { Comment } from '../api/commentsApi'
+import type { Comment } from './types'
 
 export const commentAdapter = createEntityAdapter<Comment>({
   selectId: comment => comment.id,

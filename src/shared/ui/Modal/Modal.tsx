@@ -13,7 +13,7 @@ const ModalRoot = ({ isOpen, onClose, children }: ModalProps) => {
 
   return createPortal(
     <>
-      <div className="modal-overlay" onClick={onClose} />
+      <div className="modal-overlay" onClick={() => onClose()} />
       <div className="modal">
         {children}
       </div>
@@ -37,7 +37,7 @@ const ModalFooter = ({ children }: { children: ReactNode }) => (
 const ModalClose = ({ onClick }: { onClick: () => void }) => (
   <button
     className="modal__close"
-    onClick={onClick}
+    onClick={() => onClick()}
     aria-label="Закрыть модальное окно"
   >
     ×
