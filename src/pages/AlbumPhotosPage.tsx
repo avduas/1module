@@ -7,7 +7,7 @@ export const AlbumPhotosPage = () => {
   return (
     <MainLayout>
       <div style={{ padding: '20px' }}>
-        <h1>Album {id} Photos</h1>
+        <h1>Альбом {id} </h1>
         {/* Photos grid component will be here */}
       </div>
     </MainLayout>

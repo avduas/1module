@@ -2,12 +2,12 @@ import './PostList.css'
 import { useMemo, useCallback, useState } from 'react'
 import { PostCard } from '../../entities/post/ui/PostCard'
 import { PostLengthFilter, filterByLength } from '../../features/PostLengthFilter'
-import { usePosts, type Post as APIPost } from '@/features/PostList/model/hooks'
+import {
+  useGetPostsQuery,
+  useGetPostsByUserIdQuery,
+  type Post
+} from '@/entities/post/api/postsApi'
 import { withLoading } from '@/shared/lib/hoc/withLoading'
-
-export type Post = APIPost & {
-  comments?: Array<{ id: number; text: string }>
-}
 
 type Props = {
   isLoading?: boolean
@@ -16,60 +16,88 @@ type Props = {
   userId?: number
 }
 
-const PostListContent = ({ posts = [] }: { posts: Post[] }) => (
+type PostListContentProps = {
+  posts: Post[]
+}
+
+const PostListContent = ({ posts }: PostListContentProps) => (
   <section className="post-list">
     {posts.map(post => (
       <PostCard
         key={post.id}
         title={post.title}
         body={post.body}
-        comments={post.comments}
       />
     ))}
   </section>
 )
 
-const PostListWithLoading = withLoading<{ posts: Post[]; isLoading: boolean; error?: string }>(
-  PostListContent
-)
+const PostListWithLoading = withLoading<{
+  posts: Post[]
+  isLoading: boolean
+  error?: string
+}>(PostListContent)
 
-export const PostList = ({ isLoading: externalLoading, error: externalError, posts: externalPosts, userId }: Props) => {
+export const PostList = ({
+  isLoading: externalLoading,
+  error: externalError,
+  posts: externalPosts,
+  userId
+}: Props) => {
   const [minLength, setMinLength] = useState(0)
   const [maxLength, setMaxLength] = useState(50)
 
-  const { posts: fetchedPosts, loading: hookLoading, error: hookError } = usePosts(userId)
+  // RTK Query
+  const allPostsQuery = useGetPostsQuery()
+  const userPostsQuery = useGetPostsByUserIdQuery(userId ?? 0, {
+    skip: !userId
+  })
 
-  const posts = (externalPosts || fetchedPosts) as Post[]
-  const isLoading = externalLoading ?? hookLoading
-  const error = externalError ?? hookError
+  const fetchedPosts =
+    userId
+      ? userPostsQuery.data ?? []
+      : allPostsQuery.data ?? []
+
+  const isQueryLoading =
+    userId
+      ? userPostsQuery.isLoading
+      : allPostsQuery.isLoading
+
+  const queryError =
+    userId
+      ? userPostsQuery.error
+      : allPostsQuery.error
+
+  // ✅ Всегда массив
+  const posts: Post[] = externalPosts ?? fetchedPosts ?? []
+
+  const isLoading = externalLoading ?? isQueryLoading
+  const error = externalError ?? (queryError ? 'Failed to load posts' : undefined)
 
   const handleFilterChange = useCallback((min: number, max: number) => {
     setMinLength(min)
     setMaxLength(max)
   }, [])
 
-  const filteredPosts = useMemo(
-    () => filterByLength(posts, minLength, maxLength),
-    [minLength, maxLength, posts]
-  )
+  const filteredPosts = useMemo(() => {
+    return filterByLength(posts, minLength, maxLength)
+  }, [posts, minLength, maxLength])
 
   return (
-    <>
-      <div className="post-list-wrapper">
-        <PostLengthFilter
-          minLength={minLength}
-          maxLength={maxLength}
-          onFilterChange={handleFilterChange}
-        />
+    <div className="post-list-wrapper">
+      <PostLengthFilter
+        minLength={minLength}
+        maxLength={maxLength}
+        onFilterChange={handleFilterChange}
+      />
 
-        <div className="post-list-container">
-          <PostListWithLoading
-            isLoading={isLoading}
-            error={error ?? undefined}
-            posts={filteredPosts}
-          />
-        </div>
+      <div className="post-list-container">
+        <PostListWithLoading
+          isLoading={isLoading}
+          error={error}
+          posts={filteredPosts}
+        />
       </div>
-    </>
+    </div>
   )
 }

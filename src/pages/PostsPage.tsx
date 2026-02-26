@@ -12,12 +12,12 @@ export const PostsPage = () => {
       <div style={{ padding: '20px' }}>
         {id ? (
           <div>
-            <h1>Post Detail ID: {id}</h1>
+            <h1>Id Поста: {id}</h1>
             {/* Post detail component will be here */}
           </div>
         ) : (
           <div>
-            <h1>All Posts</h1>
+            <h1>Все посты</h1>
             <PostList />
           </div>
         )}

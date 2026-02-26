@@ -1,39 +1,14 @@
-import { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import { MainLayout } from '@/shared/layouts/MainLayout'
 import { UserTabs } from '@/widgets/UserTabs'
+import { useGetUsersQuery } from '@/entities/user/api/usersApi'
 import './SelectionPage.css'
 
-interface User {
-  id: number
-  name: string
-  email: string
-}
-
 export const UsersSelectionPage = () => {
-  const [users, setUsers] = useState<User[]>([])
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState<string | null>(null)
-
-  useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        setLoading(true)
-        const response = await fetch('https://jsonplaceholder.typicode.com/users')
-        if (!response.ok) throw new Error('Failed to fetch users')
-        const data = await response.json()
-        setUsers(data)
-      } catch (err) {
-        setError(err instanceof Error ? err.message : 'An error occurred')
-      } finally {
-        setLoading(false)
-      }
-    }
-    fetchUsers()
-  }, [])
+  const { data: users = [], isLoading: loading, error } = useGetUsersQuery()
 
   if (loading) return <MainLayout><div className="loading">Загрузка...</div></MainLayout>
-  if (error) return <MainLayout><div className="error">Ошибка: {error}</div></MainLayout>
+  if (error) return <MainLayout><div className="error">Ошибка: Failed to fetch users</div></MainLayout>
 
   return (
     <MainLayout>
@@ -56,3 +31,4 @@ export const UsersSelectionPage = () => {
     </MainLayout>
   )
 }
+

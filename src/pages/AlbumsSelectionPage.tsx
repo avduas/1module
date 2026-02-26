@@ -1,39 +1,14 @@
-import { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import { MainLayout } from '@/shared/layouts/MainLayout'
 import { UserTabs } from '@/widgets/UserTabs'
+import { useGetAlbumsQuery } from '@/entities/album/api/albumsApi'
 import './SelectionPage.css'
 
-interface Album {
-  id: number
-  title: string
-  userId: number
-}
-
 export const AlbumsSelectionPage = () => {
-  const [albums, setAlbums] = useState<Album[]>([])
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState<string | null>(null)
-
-  useEffect(() => {
-    const fetchAlbums = async () => {
-      try {
-        setLoading(true)
-        const response = await fetch('https://jsonplaceholder.typicode.com/albums')
-        if (!response.ok) throw new Error('Failed to fetch albums')
-        const data = await response.json()
-        setAlbums(data)
-      } catch (err) {
-        setError(err instanceof Error ? err.message : 'An error occurred')
-      } finally {
-        setLoading(false)
-      }
-    }
-    fetchAlbums()
-  }, [])
+  const { data: albums = [], isLoading: loading, error } = useGetAlbumsQuery()
 
   if (loading) return <MainLayout><div className="loading">Загрузка...</div></MainLayout>
-  if (error) return <MainLayout><div className="error">Ошибка: {error}</div></MainLayout>
+  if (error) return <MainLayout><div className="error">Ошибка: Failed to fetch albums</div></MainLayout>
 
   return (
     <MainLayout>
@@ -56,3 +31,4 @@ export const AlbumsSelectionPage = () => {
     </MainLayout>
   )
 }
+
