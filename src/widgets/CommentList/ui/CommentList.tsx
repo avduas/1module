@@ -1,5 +1,6 @@
 import './CommentList.css'
 import { useState, useCallback, useMemo } from 'react'
+import { ItemList } from '@/shared/ui/ItemList'
 
 export type Comment = {
   id: number
@@ -59,12 +60,15 @@ export const CommentList = ({ comments }: Props) => {
 
       {showAllComments && hasMoreComments && (
         <div className="comment-list__expanded">
-          {restComments.map(comment => (
-            <div key={comment.id} className="comment-list__item">
-              <h4 className="comment-list__item-title">Комментарий {comment.id}</h4>
-              <p className="comment-list__item-text">{comment.text}</p>
-            </div>
-          ))}
+          <ItemList
+            items={restComments}
+            renderItem={comment => (
+              <div key={comment.id} className="comment-list__item">
+                <h4 className="comment-list__item-title">Комментарий {comment.id}</h4>
+                <p className="comment-list__item-text">{comment.text}</p>
+              </div>
+            )}
+          />
         </div>
       )}
     </div>

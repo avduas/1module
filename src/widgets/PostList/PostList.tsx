@@ -1,13 +1,14 @@
 import './PostList.css'
 import { useMemo, useCallback, useState } from 'react'
-import { PostCard } from '../../entities/post/ui/PostCard'
-import { PostLengthFilter, filterByLength } from '../../features/PostLengthFilter'
+import { PostCard } from '@/entities/post/ui/PostCard'
+import { PostLengthFilter, filterByLength } from '@/features/PostLengthFilter'
 import {
   useGetPostsQuery,
   useGetPostsByUserIdQuery,
-  type Post
-} from '@/entities/post/api/postsApi'
+  type Post,
+} from '@/entities'
 import { withLoading } from '@/shared/lib/hoc/withLoading'
+import { ItemList } from '@/shared/ui/ItemList'
 
 type Props = {
   isLoading?: boolean
@@ -22,13 +23,16 @@ type PostListContentProps = {
 
 const PostListContent = ({ posts }: PostListContentProps) => (
   <section className="post-list">
-    {posts.map(post => (
-      <PostCard
-        key={post.id}
-        title={post.title}
-        body={post.body}
-      />
-    ))}
+    <ItemList
+      items={posts}
+      renderItem={post => (
+        <PostCard
+          key={post.id}
+          title={post.title}
+          body={post.body}
+        />
+      )}
+    />
   </section>
 )
 

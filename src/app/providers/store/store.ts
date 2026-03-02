@@ -1,10 +1,15 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { setupListeners } from '@reduxjs/toolkit/query'
-import { postsApi } from '@/entities/post/api/postsApi'
-import { commentsApi } from '@/entities/comment/api/commentsApi'
-import { albumsApi } from '@/entities/album/api/albumsApi'
-import { todosApi } from '@/entities/todo/api/todosApi'
-import { usersApi } from '@/entities/user/api/usersApi'
+import {
+  postsApi,
+  commentsApi,
+  albumsApi,
+  todosApi,
+  usersApi,
+  albumAdapter,
+  todoAdapter,
+} from '../../../entities'
+
 
 export const store = configureStore({
   reducer: {
