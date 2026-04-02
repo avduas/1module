@@ -1,0 +1,26 @@
+.post-list-wrapper {
+  display: flex;
+  gap: 2rem;
+}
+
+.post-list-container {
+  flex: 1;
+  min-width: 0;
+}
+
+.post-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+@media (max-width: 768px) {
+  .post-list-wrapper {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .post-list-container {
+    width: 100%;
+  }
+}
